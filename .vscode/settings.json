@@ -1,0 +1,29 @@
+{
+	"eslint.workingDirectories": [
+		"src"
+	],
+	"eslint.options": {
+		"configFile": ".eslintstagedrc.js"
+	},
+	"editor.suggestSelection": "first",
+	"typescript.tsserver.log": "verbose",
+	"typescript.tsdk": "src/node_modules/typescript/lib",
+	"breadcrumbs.enabled": true,
+	"editor.insertSpaces": false,
+	"editor.tabSize": 4,
+	"typescript.updateImportsOnFileMove.enabled": "always",
+	"diffEditor.ignoreTrimWhitespace": false,
+	"javascript.updateImportsOnFileMove.enabled": "always",
+	"[javascript]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "vscode.typescript-language-features"
+	},
+	"[typescriptreact][typescript]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": "explicit"
+		}
+	},
+	"prettier.configPath": ".prettierrc.json"
+}

@@ -1,0 +1,10 @@
+# OSX
+#
+.DS_Store
+.idea
+
+# image-converter
+/tools/image-converter/node_modules/*
+
+# vscode
+vscode/

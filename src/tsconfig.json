@@ -1,0 +1,43 @@
+{
+	"compilerOptions": {
+		"allowJs": true,
+		"allowSyntheticDefaultImports": true,
+		"forceConsistentCasingInFileNames": true,
+		"experimentalDecorators": true,
+		"esModuleInterop": true,
+		"isolatedModules": false,
+		"jsx": "react-native",
+		"module": "es2015",
+		"moduleResolution": "node",
+		"noEmit": true,
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"sourceMap": true,
+		"target": "es2015",
+		"skipLibCheck": true,
+		"baseUrl": "./",
+		"paths": {
+			"@components*": ["./app/components*"],
+			"@config*": ["./app/config*"],
+			"@containers*": ["./app/containers*"],
+			"@images*": ["./app/images"],
+			"@navigation*": ["./app/navigation*"],
+			"@themes*": ["./app/themes*"],
+			"@utils*": ["./app/utils*"]
+		},
+	},
+	"exclude": [
+		"node_modules",
+		"app/lib/xmljs",
+		"babel.config.js",
+		"metro.config.js",
+		"__mocks__"
+	],
+	"include": [
+		"app",
+		"./jest.setup.d.ts",
+		"./declarations.d.ts",
+		"./jest.setup.js"
+		]
+}
