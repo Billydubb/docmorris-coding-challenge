@@ -1,36 +1,51 @@
+
 import { theme } from '@themes/variables/ThemeProvider'
 import { Product } from 'app/models/Product'
+import { useMobx } from 'app/state/StateProvider'
 import React, { FC } from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 interface Props {
 	product: Product
 }
 
 
+
 export const ProductListItem: FC<Props> = ({ product }) => {
 
+	const {productStore} = useMobx();
+
+
+	function formatBasePrice(basePrice: string) {
+
+		const split = basePrice.split("/");
+		return `${split[0]} | ${split[1]}`
+	}
+
 	return (
-		<View style={styles.container}>
-			<Image style={styles.productImage} source={{uri: product.mediaGroupImages[0].media["px300"]}} />
-			<View style={styles.textContainer}>
-				<Text style={styles.productName}>{product.productName}</Text>
-				<View style={styles.productInfoRow}>
-					<Text style={styles.productInfoText}>{product.quantity}</Text>
-					<Text style={styles.dotSeparator}>•</Text>
-					<Text style={styles.productInfoText}>{product.pharmaceuticalForm}</Text>
-					{!!product.categorization && (
-						<>
-							<Text style={styles.dotSeparator}>•</Text>
-							<Text style={styles.productInfoText}>{product.categorization}</Text>
-						</>
-					)}
+		//TODO: implement onPress functionality
+		<TouchableOpacity onPress={Function.prototype()}>
+			<View style={styles.container}>
+				<Image style={styles.productImage} source={{uri: product.mediaGroupImages[0].media["px300"]}} />
+				<View style={styles.textContainer}>
+					<Text style={styles.productName}>{product.productName}</Text>
+					<View style={styles.productInfoRow}>
+						<Text style={styles.productInfoText}>{product.quantity}</Text>
+						<Text style={styles.dotSeparator}>•</Text>
+						<Text style={styles.productInfoText}>{product.pharmaceuticalForm}</Text>
+						{!!product.categorization && (
+							<>
+								<Text style={styles.dotSeparator}>•</Text>
+								<Text style={styles.productInfoText}>{product.categorization}</Text>
+							</>
+						)}
+					</View>
+					<Text style={styles.price}>{product.price} €</Text>
+					<Text style={styles.basePrice}>{formatBasePrice(product.basePrice)}</Text>
+					<Text style={{...styles.stockAvailability, color: product.inStock ? theme.colors.brandTertiary : theme.colors.lightDarkText}}>{product.inStock ? "Auf Lager" : "Ausverkauft"}</Text>
 				</View>
-				<Text style={styles.price}>{product.price} €</Text>
-				<Text style={styles.basePrice}>{product.basePrice}</Text>
-				<Text style={styles.stockAvailability}>{product.inStock ? "Auf Lager" : "Ausverkauft"}</Text>
 			</View>
-		</View>
+		</TouchableOpacity>
 	)
 }
 
@@ -40,6 +55,8 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		width: "100%",
 		padding: 24,
+		borderTopWidth: 1,
+		borderTopColor: theme.colors.grey,
 	},
 	productImage: {
 		width: "100%",
@@ -52,7 +69,7 @@ const styles = StyleSheet.create({
 		flex: 2
 	},
 	productName: { 
-		color: theme.darkText,
+		color: theme.colors.darkText,
 		fontSize: theme.fontSize.common.large,
 		fontWeight: "bold",
 		fontFamily: theme.fontFamily,
@@ -64,7 +81,7 @@ const styles = StyleSheet.create({
 		marginBottom: 8,
 	},
 	productInfoText: {
-		color: theme.lightDarkText,
+		color: theme.colors.lightDarkText,
 		fontFamily: theme.fontFamily,
 		fontSize: theme.fontSize.common.medium,
 		fontWeight: theme.fontWeight.medium,
@@ -74,19 +91,22 @@ const styles = StyleSheet.create({
 		marginHorizontal: 8
 	},
 	price: {
-		color: theme.darkText,
+		color: theme.colors.darkText,
 		fontSize: theme.fontSize.major.small,
 		lineHeight: 24,
 		fontWeight: theme.fontWeight.semiBold
 	},
 	basePrice: {
-		color: theme.lightDarkText,
+		color: theme.colors.lightDarkText,
 		fontSize: theme.fontSize.common.extraSmall,
 		lineHeight: 15,
-		marginBottom: 8
+		marginBottom: 8,
+		fontFamily: theme.fontFamily,
 	},
 	stockAvailability: {
-
+		fontSize: theme.fontSize.common.small,
+		fontFamily: theme.fontFamily,
+		lineHeight: 15,
 	}
 	
 })

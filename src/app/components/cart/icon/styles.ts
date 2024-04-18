@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
 	badge: {
 		height: 16,
 		width: 16,
-		backgroundColor: theme.badgeColor,
+		backgroundColor: theme.colors.badgeColor,
 		top: 0,
 		left: 55,
 		position: 'absolute',
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 	},
 	badgeTitle: {
 		textAlign: 'center',
-		color: theme.inverseTextColor,
+		color: theme.colors.inverseTextColor,
 		fontSize: theme.fontSize.minor.large
 	}
 })

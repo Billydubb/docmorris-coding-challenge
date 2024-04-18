@@ -44,32 +44,38 @@ const fontWeight: Record<string, FontWeightValue> = {
 	heavy: "900",
 };
 
-const docmorris = {
-	deviceWidth,
-	fontSize,
-	fontWeight,
+// Define the color constraints
+const colors = {
 	brandGrey: '#666',
 	brandActive: '#00463d',
 	brandTertiary: '#00965a',
 	darkText: "#343434",
 	lightDarkText: "#535353",
+	grey: "#cccccc",
 	get badgeColor() {
 		return this.brandTertiary
 	},
 	inverseTextColor: '#fff',
+	searchInputContainerColor: '#f2f2f2',
+	searchBarIconColor: '#a8a8a8',
 	searchBarPlaceholder: '#a8a8a8',
-	statusBarDefault: platform === PLATFORM.IOS ? 'dark-content' : 'light-content',
 	brandPrimary: '#00463d',
+	brandDark: '#222',
+  };
+
+const docmorris = {
+	colors,
+	deviceWidth,
+	fontSize,
+	fontWeight,
+	statusBarDefault: platform === PLATFORM.IOS ? 'dark-content' : 'light-content',
 	searchInputContainerPadding: 3,
 	searchInputContainerHeight: 42,
 	searchInputContainerMarginTop: 8,
 	searchInputContainerMarginBottom: 6,
 	searchInputContainerMarginHorizontal: 8,
 	searchInputContainerBorderWidth: 2,
-	searchInputContainerColor: '#f2f2f2',
-	searchBarIconColor: '#a8a8a8',
 	searchInputBorderRadius: 10,
-	brandDark: '#222',
 	fontFamily: 'Poppins-Regular'
 }
 

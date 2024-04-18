@@ -1,5 +1,10 @@
 module.exports = {
-	extends: ['prettier', 'plugin:react-hooks/recommended'],
+	extends:
+		[
+			'prettier',
+			'plugin:react-hooks/recommended',
+			"plugin:prettier/recommended" // must always be the last extension,
+		],
 	env: {
 		browser: true,
 		es6: true,
@@ -21,7 +26,7 @@ module.exports = {
 		'@typescript-eslint',
 		'eslint-plugin-react-native',
 		'simple-import-sort',
-		'eslint-plugin-no-inline-styles'
+		'eslint-plugin-no-inline-styles',
 	],
 	rules: {
 		'simple-import-sort/imports': 'error',
