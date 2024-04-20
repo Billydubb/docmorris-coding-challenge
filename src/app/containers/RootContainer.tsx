@@ -14,7 +14,7 @@ const RootContainer = (): JSX.Element => {
 				<NavigationContainer>
 					<StatusBar
 						barStyle={theme.statusBarDefault as StatusBarStyle}
-						backgroundColor={theme.brandPrimary}
+						backgroundColor={theme.colors.brandPrimary}
 						animated
 					/>
 					<GestureHandlerRootView style={styles.rootView}>

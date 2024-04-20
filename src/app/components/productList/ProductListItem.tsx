@@ -3,7 +3,7 @@ import { theme } from '@themes/variables/ThemeProvider'
 import { Product } from 'app/models/Product'
 import { useMobx } from 'app/state/StateProvider'
 import React, { FC } from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 
 interface Props {
 	product: Product
@@ -22,9 +22,10 @@ export const ProductListItem: FC<Props> = ({ product }) => {
 		return `${split[0]} | ${split[1]}`
 	}
 
+
 	return (
 		//TODO: implement onPress functionality
-		<TouchableOpacity onPress={Function.prototype()}>
+		<Pressable onPress={Function.prototype()}>
 			<View style={styles.container}>
 				<Image style={styles.productImage} source={{uri: product.mediaGroupImages[0].media["px300"]}} />
 				<View style={styles.textContainer}>
@@ -45,7 +46,7 @@ export const ProductListItem: FC<Props> = ({ product }) => {
 					<Text style={{...styles.stockAvailability, color: product.inStock ? theme.colors.brandTertiary : theme.colors.lightDarkText}}>{product.inStock ? "Auf Lager" : "Ausverkauft"}</Text>
 				</View>
 			</View>
-		</TouchableOpacity>
+		</Pressable>
 	)
 }
 
