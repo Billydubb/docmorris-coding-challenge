@@ -34,9 +34,11 @@
 		"react-native": "0.69.10",
 		"react-native-device-info": "10.13.1",
 		"react-native-gesture-handler": "2.16.0",
+		"react-native-render-html": "^6.3.4",
 		"react-native-safe-area-context": "4.9.0",
 		"react-native-screens": "3.18.2",
-		"react-native-splash-screen": "3.3.0"
+		"react-native-splash-screen": "3.3.0",
+		"truncate-html": "^1.1.1"
 	},
 	"devDependencies": {
 		"@babel/core": "7.12.9",

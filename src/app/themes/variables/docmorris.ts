@@ -31,8 +31,9 @@ const fontSize = {
 	}
 }
 
-type FontWeightValue = "normal" | "bold" | "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900";
-const fontWeight: Record<string, FontWeightValue> = {
+type FontWeightKey = "hairLine" | "extraLight" | "light" | "normal" | "medium" | "semiBold" | "bold" | "extraBold" | "heavy";
+type FontWeightValue = "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900";
+const fontWeight: Record<FontWeightKey, FontWeightValue> = {
 	hairLine: "100",
 	extraLight: "200",
 	light: "300",
@@ -46,12 +47,14 @@ const fontWeight: Record<string, FontWeightValue> = {
 
 // Define the color constraints
 const colors = {
+	white: "#ffffff",
 	brandGrey: '#666',
 	brandActive: '#00463d',
 	brandTertiary: '#00965a',
 	darkText: "#343434",
 	lightDarkText: "#535353",
 	grey: "#cccccc",
+	lightGrey: "#ededed",
 	get badgeColor() {
 		return this.brandTertiary
 	},

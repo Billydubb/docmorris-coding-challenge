@@ -4,6 +4,7 @@
  * It shows the whole Navigation structure of the app
  */
 
+import { ProductDetailScreenParamList } from '@containers/ProductDetailScreen'
 import { ProductListScreenParamList } from '@containers/ProductListScreen'
 
 import { NavigatorScreenParamList } from './NavigatorHelper'
@@ -18,4 +19,5 @@ export type TabNavigatorParamList = {
 
 export type SearchNavigatorParamList = {
 	ProductListScreen: ProductListScreenParamList
+	ProductDetailScreen: ProductDetailScreenParamList
 }
