@@ -34,8 +34,14 @@ const ProductDetailScreen: FC<Props> = observer(({ route }) => {
 					filled
 					onPress={Function.prototype()}
 					title="In den Warenkorb"
+					disabled={!product.inStock}
 				/>
-				<LoadingButton style={styles.cartButton} onPress={Function.prototype()} title="Rezept einlösen" />
+				<LoadingButton
+					style={styles.cartButton}
+					onPress={Function.prototype()}
+					title="Rezept einlösen"
+					disabled={!product.inStock}
+				/>
 				<Text style={styles.segmentTitle}>Details</Text>
 				<View style={styles.detailsView}>
 					<View style={styles.detailsRow}>
