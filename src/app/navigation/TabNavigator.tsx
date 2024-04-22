@@ -1,10 +1,13 @@
 import AccountTabBarIconComponent from '@components/AccountTabBarIconComponent'
 import { CartTabBarIconComponent } from '@components/cart'
+import { CartScreenHeader } from '@components/cart/CartScreenHeader'
 import TabBarNavigatorIconLabelComponent from '@components/TabBarNavigatorIconLabelComponent'
-import ProductListScreen from '@containers/ProductListScreen'
+import CartScreen from '@containers/CartScreen'
 import Images from '@images'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import React from 'react'
+
+import { SearchNavigator } from './SearchNavigator'
 
 const BottomTabNavigator = createBottomTabNavigator()
 
@@ -16,7 +19,7 @@ export const TabNavigator = (): JSX.Element => {
 		<BottomTabNavigator.Navigator initialRouteName={'SearchNavigator'}>
 			<BottomTabNavigator.Screen
 				name={'SearchNavigator'}
-				component={ProductListScreen}
+				component={SearchNavigator}
 				options={{
 					tabBarLabel: 'Suche',
 					tabBarIcon: (): JSX.Element => {
@@ -28,13 +31,14 @@ export const TabNavigator = (): JSX.Element => {
 			/>
 			<BottomTabNavigator.Screen
 				name={'CartNavigator'}
-				component={DummyComponent}
+				component={CartScreen}
 				options={{
 					tabBarLabel: 'Warenkorb',
 					tabBarIcon: (): JSX.Element => {
 						return <CartTabBarIconComponent />
 					},
-					headerShown: false,
+					headerShown: true,
+					header: CartScreenHeader,
 					tabBarAccessibilityLabel: 'CartTab'
 				}}
 			/>

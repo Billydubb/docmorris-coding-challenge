@@ -1,33 +1,33 @@
-
+import { SearchNavigatorParamList } from '@navigation/types'
+import { NavigationProp, useNavigation } from '@react-navigation/core'
 import { theme } from '@themes/variables/ThemeProvider'
 import { Product } from 'app/models/Product'
-import { useMobx } from 'app/state/StateProvider'
 import React, { FC } from 'react'
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 interface Props {
 	product: Product
 }
 
-
-
 export const ProductListItem: FC<Props> = ({ product }) => {
+	const navigation = useNavigation<NavigationProp<SearchNavigatorParamList>>()
+	const formatBasePrice = (basePrice: string) => {
+		const split = basePrice.split('/')
 
-	const {productStore} = useMobx();
-
-
-	function formatBasePrice(basePrice: string) {
-
-		const split = basePrice.split("/");
 		return `${split[0]} | ${split[1]}`
 	}
 
+	const onPress = () => {
+		navigation.navigate('ProductDetailScreen', {
+			screenName: 'ProductDetailScreen',
+			product
+		})
+	}
 
 	return (
-		//TODO: implement onPress functionality
-		<Pressable onPress={Function.prototype()}>
+		<TouchableOpacity onPress={onPress}>
 			<View style={styles.container}>
-				<Image style={styles.productImage} source={{uri: product.mediaGroupImages[0].media["px300"]}} />
+				<Image style={styles.productImage} source={{ uri: product.mediaGroupImages[0].media.px300 }} />
 				<View style={styles.textContainer}>
 					<Text style={styles.productName}>{product.productName}</Text>
 					<View style={styles.productInfoRow}>
@@ -43,50 +43,56 @@ export const ProductListItem: FC<Props> = ({ product }) => {
 					</View>
 					<Text style={styles.price}>{product.price} €</Text>
 					<Text style={styles.basePrice}>{formatBasePrice(product.basePrice)}</Text>
-					<Text style={{...styles.stockAvailability, color: product.inStock ? theme.colors.brandTertiary : theme.colors.lightDarkText}}>{product.inStock ? "Auf Lager" : "Ausverkauft"}</Text>
+					<Text
+						style={{
+							...styles.stockAvailability,
+							color: product.inStock ? theme.colors.brandTertiary : theme.colors.lightDarkText
+						}}
+					>
+						{product.inStock ? 'Auf Lager' : 'Ausverkauft'}
+					</Text>
 				</View>
 			</View>
-		</Pressable>
+		</TouchableOpacity>
 	)
 }
 
-
 const styles = StyleSheet.create({
 	container: {
-		flexDirection: "row",
-		width: "100%",
+		flexDirection: 'row',
+		width: '100%',
 		padding: 24,
 		borderTopWidth: 1,
-		borderTopColor: theme.colors.grey,
+		borderTopColor: theme.colors.grey
 	},
 	productImage: {
-		width: "100%",
+		width: '100%',
 		flex: 1,
 		aspectRatio: 1,
 		marginRight: 16
 	},
 	textContainer: {
-		flexDirection: "column",
+		flexDirection: 'column',
 		flex: 2
 	},
-	productName: { 
+	productName: {
 		color: theme.colors.darkText,
 		fontSize: theme.fontSize.common.large,
-		fontWeight: "bold",
+		fontWeight: theme.fontWeight.bold,
 		fontFamily: theme.fontFamily,
 		lineHeight: 20,
-		marginBottom: 4,
+		marginBottom: 4
 	},
 	productInfoRow: {
-		flexDirection: "row",
-		marginBottom: 8,
+		flexDirection: 'row',
+		marginBottom: 8
 	},
 	productInfoText: {
 		color: theme.colors.lightDarkText,
 		fontFamily: theme.fontFamily,
 		fontSize: theme.fontSize.common.medium,
 		fontWeight: theme.fontWeight.medium,
-		lineHeight: 18,
+		lineHeight: 18
 	},
 	dotSeparator: {
 		marginHorizontal: 8
@@ -102,14 +108,13 @@ const styles = StyleSheet.create({
 		fontSize: theme.fontSize.common.extraSmall,
 		lineHeight: 15,
 		marginBottom: 8,
-		fontFamily: theme.fontFamily,
+		fontFamily: theme.fontFamily
 	},
 	stockAvailability: {
 		fontSize: theme.fontSize.common.small,
 		fontFamily: theme.fontFamily,
-		lineHeight: 15,
+		lineHeight: 15
 	}
-	
 })
 
 export default ProductListItem

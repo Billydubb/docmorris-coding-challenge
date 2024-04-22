@@ -21,9 +21,9 @@ module.exports = {
 		}
 	},
 	plugins: [
+		'@typescript-eslint',
 		'eslint-plugin-jsdoc',
 		'eslint-plugin-prefer-arrow',
-		'@typescript-eslint',
 		'eslint-plugin-react-native',
 		'simple-import-sort',
 		'eslint-plugin-no-inline-styles',

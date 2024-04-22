@@ -3,7 +3,7 @@
 		"src"
 	],
 	"eslint.options": {
-		"configFile": ".eslintstagedrc.js"
+		"configFile": ".eslintrc.js"
 	},
 	"editor.suggestSelection": "first",
 	"typescript.tsserver.log": "verbose",

@@ -15,7 +15,9 @@ module.exports = {
 					'.tsx',
 					'.jsx',
 					'.js',
-					'.ts'
+					'.ts',
+					'.svg',
+					'.cjs'
 				],
 				alias: {
 					'@components': ['./app/components'],

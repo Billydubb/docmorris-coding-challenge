@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+
 import { theme } from '../../../themes/variables/ThemeProvider'
 
 const styles = StyleSheet.create({
@@ -20,6 +21,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export {
-	styles
-}
+export { styles }

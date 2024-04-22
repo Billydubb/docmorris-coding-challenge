@@ -1,4 +1,5 @@
 import { NavigatorScreenParams, ParamListBase } from '@react-navigation/native'
+
 import { OmitNameFromNavigatorScreens } from './NavigatorUtility'
 
 /**

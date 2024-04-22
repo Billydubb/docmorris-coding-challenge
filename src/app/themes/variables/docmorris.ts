@@ -31,30 +31,43 @@ const fontSize = {
 	}
 }
 
-type FontWeightKey = "hairLine" | "extraLight" | "light" | "normal" | "medium" | "semiBold" | "bold" | "extraBold" | "heavy";
-type FontWeightValue = "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900";
+type FontWeightKey =
+	| 'hairLine'
+	| 'extraLight'
+	| 'light'
+	| 'normal'
+	| 'medium'
+	| 'semiBold'
+	| 'bold'
+	| 'extraBold'
+	| 'heavy'
+type FontWeightValue = '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900'
 const fontWeight: Record<FontWeightKey, FontWeightValue> = {
-	hairLine: "100",
-	extraLight: "200",
-	light: "300",
-	normal: "400",
-	medium: "500",
-	semiBold: "600",
-	bold: "700",
-	extraBold: "800",
-	heavy: "900",
-};
+	hairLine: '100',
+	extraLight: '200',
+	light: '300',
+	normal: '400',
+	medium: '500',
+	semiBold: '600',
+	bold: '700',
+	extraBold: '800',
+	heavy: '900'
+}
 
 // Define the color constraints
 const colors = {
-	white: "#ffffff",
+	white: '#ffffff',
+	black: '#000000',
 	brandGrey: '#666',
 	brandActive: '#00463d',
 	brandTertiary: '#00965a',
-	darkText: "#343434",
-	lightDarkText: "#535353",
-	grey: "#cccccc",
-	lightGrey: "#ededed",
+	darkText: '#343434',
+	lightDarkText: '#535353',
+	grey: '#cccccc',
+	grey7: '#FAF8F8',
+	deepPink: '#E6007E',
+	backgroundGrey: '#f2f2f2',
+	lightGrey: '#ededed',
 	get badgeColor() {
 		return this.brandTertiary
 	},
@@ -63,8 +76,8 @@ const colors = {
 	searchBarIconColor: '#a8a8a8',
 	searchBarPlaceholder: '#a8a8a8',
 	brandPrimary: '#00463d',
-	brandDark: '#222',
-  };
+	brandDark: '#222'
+}
 
 const docmorris = {
 	colors,
