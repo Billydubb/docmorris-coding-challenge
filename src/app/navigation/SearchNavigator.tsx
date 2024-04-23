@@ -30,7 +30,12 @@ export const SearchNavigator = (): JSX.Element => {
 				component={ProductDetailScreen}
 				options={({ navigation }) => ({
 					headerShown: true,
+					/* Need to set headerBackTitleVisible:false this as this is a bug in react-navigation,
+					 which results in 2 back buttons being shown on android
+					 https://github.com/react-navigation/react-navigation/issues/10391
+					 */
 					headerBackTitleVisible: false,
+					headerBackVisible: false,
 					headerTitle: '',
 					headerBackImageSource: images.icons.backButton,
 					headerTransparent: true,
