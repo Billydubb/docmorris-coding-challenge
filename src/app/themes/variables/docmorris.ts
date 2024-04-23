@@ -66,6 +66,7 @@ const colors = {
 	grey: '#cccccc',
 	grey7: '#FAF8F8',
 	deepPink: '#E6007E',
+	salem: '#108455',
 	backgroundGrey: '#f2f2f2',
 	lightGrey: '#ededed',
 	get badgeColor() {

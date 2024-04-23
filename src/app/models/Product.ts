@@ -2,7 +2,7 @@ enum ProductMediaType {
 	'default' = 'default'
 }
 
-interface ProductMediaSize {
+export interface ProductMediaSize {
 	px140: string
 	px300: string
 	px1000: string
@@ -19,7 +19,7 @@ enum ProductCategorization {
 export interface Product {
 	mediaGroupImages: { type: ProductMediaType; media: ProductMediaSize }[]
 	price: number
-	basePrice: string,
+	basePrice: string
 	productName: string
 	categorization: ProductCategorization
 	code: string

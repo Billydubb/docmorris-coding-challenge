@@ -1,13 +1,10 @@
-import { Product } from 'app/models/Product';
-import { makeAutoObservable } from 'mobx';
+import { Product } from 'app/models/Product'
+import { makeAutoObservable } from 'mobx'
 
 export class OrdersStore {
-    products: Product[] = []
+	products: Product[] = []
 
-    constructor() {
-        makeAutoObservable(this);
-    }
+	constructor() {
+		makeAutoObservable(this)
+	}
 }
-
-export const ordersStore = new OrdersStore();
-

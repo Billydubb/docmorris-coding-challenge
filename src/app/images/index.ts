@@ -10,6 +10,7 @@ export default {
 		pharmaceuticalForm: require('./icons/pharmaceuticalForm.png'),
 		pzn: require('./icons/pzn.png'),
 		plus: require('./icons/plus.png'),
+		minus: require('./icons/minus.png'),
 		trash: require('./icons/trash.png'),
 		backButton: require('./icons/backButton.png')
 	}

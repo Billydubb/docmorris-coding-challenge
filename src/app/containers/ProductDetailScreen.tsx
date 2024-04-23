@@ -5,7 +5,9 @@ import { ScreenParamList, SearchNavigatorParamList } from '@navigation/types'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { theme } from '@themes/variables/ThemeProvider'
+import { getSizedImageForProduct } from '@utils/getSizedImageForProduct'
 import { Product } from 'app/models/Product'
+import { useMobx } from 'app/state/StateProvider'
 import { observer } from 'mobx-react-lite'
 import React, { FC } from 'react'
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
@@ -20,25 +22,28 @@ type Props = NativeStackScreenProps<SearchNavigatorParamList, 'ProductDetailScre
 
 const ProductDetailScreen: FC<Props> = observer(({ route }) => {
 	const tabBarHeight = useBottomTabBarHeight()
-	// const { productStore } = useMobx()
+	const { cartStore } = useMobx()
+	const deviceWidth = theme.deviceWidth
 	const product = route.params.product
 
 	return (
 		<SafeAreaView style={styles.safeAreaContainer}>
 			<ScrollView contentContainerStyle={[styles.container, { paddingBottom: tabBarHeight }]}>
-				<Image style={styles.productImage} source={{ uri: product.mediaGroupImages[0].media.px1000 }} />
+				<Image
+					style={styles.productImage}
+					source={{ uri: getSizedImageForProduct('cart', deviceWidth, product) }}
+				/>
 				<Text style={styles.productName}>{product.productName}</Text>
-				{/* TODO: implement onPress functionality */}
 				<LoadingButton
-					style={styles.recipeButton}
+					style={styles.button}
 					filled
-					onPress={Function.prototype()}
+					onPress={() => cartStore.addToCart(product, false)}
 					title="In den Warenkorb"
 					disabled={!product.inStock}
 				/>
 				<LoadingButton
-					style={styles.cartButton}
-					onPress={Function.prototype()}
+					style={styles.button}
+					onPress={() => cartStore.addToCart(product, true)}
 					title="Rezept einlösen"
 					disabled={!product.inStock}
 				/>
@@ -104,10 +109,7 @@ const styles = StyleSheet.create({
 		lineHeight: 27,
 		marginBottom: 28
 	},
-	cartButton: {
-		marginBottom: 15
-	},
-	recipeButton: {
+	button: {
 		marginBottom: 15
 	},
 	segmentTitle: {

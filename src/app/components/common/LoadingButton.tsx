@@ -9,7 +9,6 @@ interface Props {
 	isLoading?: boolean
 	disabled?: boolean
 	style?: StyleProp<ViewStyle>
-	borderLess?: boolean
 	filled?: boolean
 	testID?: string
 }

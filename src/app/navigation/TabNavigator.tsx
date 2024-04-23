@@ -5,6 +5,9 @@ import TabBarNavigatorIconLabelComponent from '@components/TabBarNavigatorIconLa
 import CartScreen from '@containers/CartScreen'
 import Images from '@images'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { theme } from '@themes/variables/ThemeProvider'
+import { useMobx } from 'app/state/StateProvider'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 
 import { SearchNavigator } from './SearchNavigator'
@@ -12,8 +15,9 @@ import { SearchNavigator } from './SearchNavigator'
 const BottomTabNavigator = createBottomTabNavigator()
 
 // eslint-disable-next-line max-lines-per-function
-export const TabNavigator = (): JSX.Element => {
+export const TabNavigator = observer((): JSX.Element => {
 	const DummyComponent = () => <></>
+	const { cartStore } = useMobx()
 
 	return (
 		<BottomTabNavigator.Navigator initialRouteName={'SearchNavigator'}>
@@ -39,6 +43,10 @@ export const TabNavigator = (): JSX.Element => {
 					},
 					headerShown: true,
 					header: CartScreenHeader,
+					tabBarBadge: cartStore.numProductsInCart || undefined,
+					tabBarBadgeStyle: {
+						backgroundColor: theme.colors.salem
+					},
 					tabBarAccessibilityLabel: 'CartTab'
 				}}
 			/>
@@ -56,4 +64,4 @@ export const TabNavigator = (): JSX.Element => {
 			/>
 		</BottomTabNavigator.Navigator>
 	)
-}
+})

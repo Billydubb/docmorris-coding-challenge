@@ -32,12 +32,13 @@
 		"app/lib/xmljs",
 		"babel.config.js",
 		"metro.config.js",
-		"__mocks__"
 	],
 	"include": [
 		"app",
 		"./jest.setup.d.ts",
 		"./declarations.d.ts",
-		"./jest.setup.js"
+		"jest.setup.js",
+		"index.js",
+		"__mocks__"
 		]
 }

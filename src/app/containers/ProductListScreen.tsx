@@ -40,12 +40,12 @@ const ProductListScreen: FC<Props> = observer(() => {
 				</View>
 			</SafeAreaView>
 			<FlatList
+				testID="product-list-flatlist"
 				data={productStore.paginatedProducts}
 				initialNumToRender={productStore.pageSize}
 				keyExtractor={(product) => product.code}
 				renderItem={({ item }) => <ProductListItem product={item}></ProductListItem>}
 				contentContainerStyle={[styles.contentContainer, { paddingBottom: tabBarHeight + insets.bottom }]}
-				// TODO: pass the number of search results into numResults rather than 50
 				ListHeaderComponent={() => (
 					<ProductListHeaderComponent
 						numResults={productStore.filteredProducts.length}

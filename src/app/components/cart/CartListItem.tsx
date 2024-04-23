@@ -1,51 +1,69 @@
 import Images from '@images'
 import { theme } from '@themes/variables/ThemeProvider'
-import { Product } from 'app/models/Product'
-import React, { FC, useState } from 'react'
+import { getSizedImageForProduct } from '@utils/getSizedImageForProduct'
+import { CartItem } from 'app/state/CartStore'
+import { useMobx } from 'app/state/StateProvider'
+import { observer } from 'mobx-react-lite'
+import React, { FC } from 'react'
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 
 interface Props {
-	product: Product
+	cartItem: CartItem
 }
 
-export const CartListItem: FC<Props> = ({ product }) => {
-	const [quantity, setQuantity] = useState('')
+export const CartListItem: FC<Props> = observer(({ cartItem }) => {
+	const { cartStore } = useMobx()
+	const deviceWidth = theme.deviceWidth
 	const handleChange = (value: string) => {
 		const numericValue = value.replace(/[^0-9]/g, '')
-		setQuantity(numericValue)
+		cartStore.setCartItemQuantity(cartItem.product.code, cartItem.withPrescription, Number(numericValue))
+	}
+
+	const increment = () => {
+		cartStore.inCrementCartItemQuantity(cartItem.product.code, cartItem.withPrescription)
+	}
+
+	const decrementOrDelete = () => {
+		cartStore.decrementOrDeleteCartItemQuantity(cartItem.product.code, cartItem.withPrescription)
 	}
 
 	return (
 		<View style={styles.prescriptionCardBody}>
 			<View style={styles.prescriptionCardContent}>
-				<Image style={styles.productImage} source={{ uri: product.mediaGroupImages[0].media.px140 }} />
+				<Image
+					style={styles.productImage}
+					source={{ uri: getSizedImageForProduct('cart', deviceWidth, cartItem.product) }}
+				/>
 				<View style={styles.rightContainer}>
-					<Text style={styles.productName}>{product.productName}</Text>
+					<Text style={styles.productName}>{cartItem.product.productName}</Text>
 					<View style={styles.quantityAndPriceRow}>
 						<View style={styles.quantityContainer}>
 							<Text style={styles.quantity}>Menge:</Text>
 							<View style={styles.quantityRow}>
-								<TouchableOpacity style={styles.quantityButton}>
-									<Image source={Images.icons.trash} style={styles.quantityImage}></Image>
+								<TouchableOpacity onPress={decrementOrDelete} style={styles.quantityButton}>
+									<Image
+										source={cartItem.quantity < 2 ? Images.icons.trash : Images.icons.minus}
+										style={styles.quantityImage}
+									></Image>
 								</TouchableOpacity>
 								<TextInput
 									keyboardType="numeric"
 									style={styles.quantityInput}
-									value={quantity}
+									value={String(cartItem.quantity)}
 									onChangeText={handleChange}
 								/>
-								<TouchableOpacity style={styles.quantityButton}>
+								<TouchableOpacity onPress={increment} style={styles.quantityButton}>
 									<Image source={Images.icons.plus} style={styles.quantityImage}></Image>
 								</TouchableOpacity>
 							</View>
 						</View>
-						<Text style={styles.price}>{`${product.price} €`}</Text>
+						<Text style={styles.price}>{`${cartItem.product.price} €`}</Text>
 					</View>
 				</View>
 			</View>
 		</View>
 	)
-}
+})
 
 const styles = StyleSheet.create({
 	prescriptionCardBody: {

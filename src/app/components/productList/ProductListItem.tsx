@@ -1,16 +1,18 @@
 import { SearchNavigatorParamList } from '@navigation/types'
 import { NavigationProp, useNavigation } from '@react-navigation/core'
 import { theme } from '@themes/variables/ThemeProvider'
+import { getSizedImageForProduct } from '@utils/getSizedImageForProduct'
 import { Product } from 'app/models/Product'
-import React, { FC } from 'react'
+import React, { FC, memo } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 interface Props {
 	product: Product
 }
 
-export const ProductListItem: FC<Props> = ({ product }) => {
+export const _ProductListItem: FC<Props> = ({ product }) => {
 	const navigation = useNavigation<NavigationProp<SearchNavigatorParamList>>()
+	const deviceWidth = theme.deviceWidth
 	const formatBasePrice = (basePrice: string) => {
 		const split = basePrice.split('/')
 
@@ -25,9 +27,12 @@ export const ProductListItem: FC<Props> = ({ product }) => {
 	}
 
 	return (
-		<TouchableOpacity onPress={onPress}>
+		<TouchableOpacity onPress={onPress} testID="product-list-item">
 			<View style={styles.container}>
-				<Image style={styles.productImage} source={{ uri: product.mediaGroupImages[0].media.px300 }} />
+				<Image
+					style={styles.productImage}
+					source={{ uri: getSizedImageForProduct('list', deviceWidth, product) }}
+				/>
 				<View style={styles.textContainer}>
 					<Text style={styles.productName}>{product.productName}</Text>
 					<View style={styles.productInfoRow}>
@@ -85,7 +90,8 @@ const styles = StyleSheet.create({
 	},
 	productInfoRow: {
 		flexDirection: 'row',
-		marginBottom: 8
+		marginBottom: 8,
+		flexWrap: 'wrap'
 	},
 	productInfoText: {
 		color: theme.colors.lightDarkText,
@@ -117,4 +123,5 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default ProductListItem
+const ProductListItem = memo(_ProductListItem)
+export { ProductListItem }

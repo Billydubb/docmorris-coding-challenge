@@ -22,7 +22,7 @@
 		"editor.formatOnSave": true,
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
 		"editor.codeActionsOnSave": {
-			"source.organizeImports": "explicit"
+			"source.organizeImports": "never"
 		}
 	},
 	"prettier.configPath": ".prettierrc.json"

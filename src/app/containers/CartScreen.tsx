@@ -17,21 +17,19 @@ export type CartScreenParamsList = ScreenParamList<'CartScreen'>
 const CartScreen = observer(() => {
 	const tabBarHeight = useBottomTabBarHeight()
 	const insets = useSafeAreaInsets()
-	const { productStore } = useMobx()
+	const { productStore, cartStore, userStore } = useMobx()
+	const {
+		user: { firstName, lastName }
+	} = userStore
 
 	const data = [
 		{
 			key: 'prescription',
-			data: [productStore.products[0], productStore.products[1], productStore.products[2]]
+			data: cartStore.prescriptionCartScreenProducts
 		},
 		{
 			key: 'noPrescription',
-			data: [
-				productStore.products[1],
-				productStore.products[2],
-				productStore.products[3],
-				productStore.products[4]
-			]
+			data: cartStore.cartScreenProducts
 		}
 	]
 
@@ -41,7 +39,7 @@ const CartScreen = observer(() => {
 				<TrianglePattern style={styles.trianglePattern} height={20} width={theme.deviceWidth} />
 				<View style={[styles.totalPriceContainer, { width: theme.deviceWidth }]}>
 					<Text style={styles.totalPrice}>Gesamtpreis</Text>
-					<Text style={styles.totalPrice}>{'15,78 €'}</Text>
+					<Text style={styles.totalPrice}>{`${cartStore.totalPrice.toFixed(2)} €`}</Text>
 				</View>
 			</>
 		)
@@ -52,11 +50,13 @@ const CartScreen = observer(() => {
 			<SectionList
 				sections={data}
 				initialNumToRender={productStore.pageSize}
-				keyExtractor={(product, index) => `${product.code}-${index}`}
-				renderItem={({ item }) => <CartListItem product={item}></CartListItem>}
+				keyExtractor={(cartItem, index) => `${cartItem.product.code}-${index}`}
+				renderItem={({ item }) => <CartListItem cartItem={item}></CartListItem>}
 				renderSectionHeader={({ section }) => (
-					// TODO: create a UserStore and pass down the userName from the UserStore
-					<CartListSectionHeader sectionKey={section.key} userName={'Max Mustermann'}></CartListSectionHeader>
+					<CartListSectionHeader
+						sectionKey={section.key}
+						userName={`${firstName} ${lastName}`}
+					></CartListSectionHeader>
 				)}
 				contentContainerStyle={[styles.contentContainer, { paddingBottom: tabBarHeight + insets.bottom }]}
 				stickyHeaderIndices={[0]}
@@ -73,8 +73,8 @@ const CartScreen = observer(() => {
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: theme.colors.white,
-		paddingTop: 24
+		flex: 1,
+		backgroundColor: theme.colors.white
 	},
 	contentContainer: {
 		padding: 24

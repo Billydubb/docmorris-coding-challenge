@@ -32,7 +32,6 @@ export class ProductStore {
 
 		const results = this.fuse.search(this.searchTerm)
 
-		// Extract the items from the results and sort by score (most relevant first)
 		return results.map((result) => {
 			return result.item
 		})
@@ -70,5 +69,3 @@ export class ProductStore {
 		this.pageNumber = 0
 	}
 }
-
-export const productStore = new ProductStore()
