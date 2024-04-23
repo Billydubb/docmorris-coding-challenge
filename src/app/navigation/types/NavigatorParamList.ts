@@ -5,6 +5,7 @@
  */
 
 import { CartScreenParamsList } from '@containers/CartScreen'
+import { OrdersScreenParamsList } from '@containers/OrdersScreen'
 import { ProductDetailScreenParamList } from '@containers/ProductDetailScreen'
 import { ProductListScreenParamList } from '@containers/ProductListScreen'
 
@@ -17,6 +18,7 @@ export type AppNavigatorParamList = {
 export type TabNavigatorParamList = {
 	SearchNavigator: NavigatorScreenParamList<SearchNavigatorParamList>
 	CartScreen: CartScreenParamsList
+	OrdersScreen: OrdersScreenParamsList
 }
 
 export type SearchNavigatorParamList = {

@@ -1,12 +1,15 @@
 import { theme } from '@themes/variables/ThemeProvider'
-import React from 'react'
+import React, { FC } from 'react'
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
 
-export const CartScreenHeader = () => {
+interface Props {
+	title: string
+}
+export const TabScreenHeader: FC<Props> = ({ title }) => {
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style={styles.paddingContainer}>
-				<Text style={styles.text}>Warenkorb</Text>
+				<Text style={styles.text}>{title}</Text>
 			</View>
 		</SafeAreaView>
 	)

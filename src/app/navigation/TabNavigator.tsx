@@ -1,8 +1,9 @@
 import AccountTabBarIconComponent from '@components/AccountTabBarIconComponent'
 import { CartTabBarIconComponent } from '@components/cart'
-import { CartScreenHeader } from '@components/cart/CartScreenHeader'
+import { TabScreenHeader } from '@components/common/TabScreenHeader'
 import TabBarNavigatorIconLabelComponent from '@components/TabBarNavigatorIconLabelComponent'
 import CartScreen from '@containers/CartScreen'
+import OrdersScreen from '@containers/OrdersScreen'
 import Images from '@images'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { theme } from '@themes/variables/ThemeProvider'
@@ -11,12 +12,11 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 
 import { SearchNavigator } from './SearchNavigator'
+import { TabNavigatorParamList } from './types'
 
-const BottomTabNavigator = createBottomTabNavigator()
+const BottomTabNavigator = createBottomTabNavigator<TabNavigatorParamList>()
 
-// eslint-disable-next-line max-lines-per-function
 export const TabNavigator = observer((): JSX.Element => {
-	const DummyComponent = () => <></>
 	const { cartStore } = useMobx()
 
 	return (
@@ -34,7 +34,7 @@ export const TabNavigator = observer((): JSX.Element => {
 				}}
 			/>
 			<BottomTabNavigator.Screen
-				name={'CartNavigator'}
+				name={'CartScreen'}
 				component={CartScreen}
 				options={{
 					tabBarLabel: 'Warenkorb',
@@ -42,7 +42,7 @@ export const TabNavigator = observer((): JSX.Element => {
 						return <CartTabBarIconComponent />
 					},
 					headerShown: true,
-					header: CartScreenHeader,
+					header: () => <TabScreenHeader title={'Warenkorb'} />,
 					tabBarBadge: cartStore.numProductsInCart || undefined,
 					tabBarBadgeStyle: {
 						backgroundColor: theme.colors.salem
@@ -51,14 +51,19 @@ export const TabNavigator = observer((): JSX.Element => {
 				}}
 			/>
 			<BottomTabNavigator.Screen
-				name={'OrdersNavigator'}
-				component={DummyComponent}
+				name={'OrdersScreen'}
+				component={OrdersScreen}
 				options={{
 					tabBarLabel: 'Bestellungen',
 					tabBarIcon: (): JSX.Element => {
 						return <AccountTabBarIconComponent />
 					},
-					headerShown: false,
+					headerShown: true,
+					header: () => <TabScreenHeader title={'Bestellungen'} />,
+					tabBarBadge: cartStore.numProductsInCart || undefined,
+					tabBarBadgeStyle: {
+						backgroundColor: theme.colors.salem
+					},
 					tabBarAccessibilityLabel: 'OrdersTab'
 				}}
 			/>

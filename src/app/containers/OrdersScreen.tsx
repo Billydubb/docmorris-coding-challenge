@@ -1,27 +1,23 @@
 import CartListItem from '@components/cart/CartListItem'
 import CartListSectionHeader from '@components/cart/CartListSectionHeader'
 import LoadingButton from '@components/common/LoadingButton'
-import { ScreenParamList, TabNavigatorParamList } from '@navigation/types'
-import { BottomTabScreenProps, useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
+import { ScreenParamList } from '@navigation/types'
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { theme } from '@themes/variables/ThemeProvider'
 import { useMobx } from 'app/state/StateProvider'
 import { observer } from 'mobx-react-lite'
-import React, { FC } from 'react'
+import React from 'react'
 import { SectionList, StyleSheet, Text, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import TrianglePattern from '../images/svg/trianglePattern.svg'
 
-export type CartScreenParamsList = ScreenParamList<'CartScreen'>
+export type OrdersScreenParamsList = ScreenParamList<'OrdersScreen'>
 
-type CartScreenProps = BottomTabScreenProps<TabNavigatorParamList, 'CartScreen'>
-
-const CartScreen: FC<CartScreenProps> = observer(({ navigation }) => {
+const OrdersScreen = observer(() => {
 	const tabBarHeight = useBottomTabBarHeight()
 	const insets = useSafeAreaInsets()
 	const { productStore, cartStore, userStore } = useMobx()
-	// const navigation = useNavigation()
-
 	const {
 		user: { firstName, lastName }
 	} = userStore
@@ -36,12 +32,6 @@ const CartScreen: FC<CartScreenProps> = observer(({ navigation }) => {
 			data: cartStore.cartScreenProducts
 		}
 	]
-
-	const onPressPurchase = () => {
-		navigation.navigate('OrdersScreen', {
-			screenName: 'OrdersScreen'
-		})
-	}
 
 	const renderListFooter = () => {
 		return (
@@ -75,7 +65,7 @@ const CartScreen: FC<CartScreenProps> = observer(({ navigation }) => {
 				ListFooterComponent={renderListFooter()}
 			/>
 			<View style={styles.fixedCTA}>
-				<LoadingButton filled onPress={onPressPurchase} title="Kostenpflichtig Bestellen"></LoadingButton>
+				<LoadingButton filled onPress={Function.prototype()} title="Kostenpflichtig Bestellen"></LoadingButton>
 			</View>
 		</View>
 	)
@@ -121,4 +111,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default CartScreen
+export default OrdersScreen
