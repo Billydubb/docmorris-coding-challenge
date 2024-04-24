@@ -34,6 +34,7 @@ const ProductListScreen: FC<Props> = observer(() => {
 						placeholder={'Suche'}
 						allowFontScaling={false}
 						placeholderTextColor={theme.colors.searchBarPlaceholder}
+						value={productStore.searchTerm}
 						onChangeText={(text) => productStore.setSearchTerm(text)}
 					/>
 					<Image source={Images.icons.search} style={styles.searchAndBarcodeIcon} />

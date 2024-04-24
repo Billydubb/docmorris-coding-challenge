@@ -51,13 +51,15 @@ describe('ProductListScreen - Component Test', () => {
 
 	afterAll(() => {
 		spyMock.mockClear()
+		jest.clearAllMocks()
 	})
 
 	it('should render correctly', () => {
-		const { getByText } = renderWithNavigation(
+		const { getByText, getByPlaceholderText } = renderWithNavigation(
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			<ProductListScreen navigation={mockNavigation as any} route={mockRoute as any}></ProductListScreen>
 		)
+		expect(getByPlaceholderText('Suche')).toBeTruthy()
 		expect(getByText('4 Ergebnisse')).toBeTruthy()
 		expect(getByText('Magnesium-diasporal 400 Extra Kapseln 100 St')).toBeTruthy()
 		expect(getByText('Ensbona Teufelssalbe Heiß 200 ml')).toBeTruthy()
@@ -82,17 +84,24 @@ describe('ProductListScreen - Component Test', () => {
 		})
 	})
 
-	it('should set the search term in products store when text is entered', () => {
-		const { getByTestId } = renderWithNavigation(
+	it('should set the search term in the search field and products store when text is entered', () => {
+		const { getByPlaceholderText } = renderWithNavigation(
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			<ProductListScreen navigation={mockNavigation as any} route={mockRoute as any}></ProductListScreen>
 		)
+
+		const searchField = getByPlaceholderText('Suche')
+		fireEvent.changeText(searchField, 'Magnesium')
+		expect(searchField.props.value).toBe('Magnesium')
 	})
 
-	// it('should navigate to PDP on click', () => {
-	// 	const { getByTestId } = renderWithNavigation(<ProductListScreen product={{ ...product }}></ProductListScreen>)
-	// 	const productListItem = getByTestId('product-list-item')
-	// 	fireEvent.press(productListItem)
-	// 	expect(mockNavigateFunction).toBeCalledTimes(1)
-	// })
+	fit('should navigate to PDP on click', () => {
+		const { getAllByTestId } = renderWithNavigation(
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			<ProductListScreen navigation={mockNavigation as any} route={mockRoute as any}></ProductListScreen>
+		)
+		const productListItem = getAllByTestId('product-list-item')[0]
+		fireEvent.press(productListItem)
+		expect(mockNavigateFunction).toBeCalledTimes(1)
+	})
 })
