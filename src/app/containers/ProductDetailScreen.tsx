@@ -30,6 +30,7 @@ const ProductDetailScreen: FC<Props> = observer(({ route }) => {
 		<SafeAreaView style={styles.safeAreaContainer}>
 			<ScrollView contentContainerStyle={[styles.container, { paddingBottom: tabBarHeight }]}>
 				<Image
+					testID="product-detail-image"
 					style={styles.productImage}
 					source={{ uri: getSizedImageForProduct('cart', deviceWidth, product) }}
 				/>
@@ -50,7 +51,11 @@ const ProductDetailScreen: FC<Props> = observer(({ route }) => {
 				<Text style={styles.segmentTitle}>Details</Text>
 				<View style={styles.detailsView}>
 					<View style={styles.detailsRow}>
-						<Image style={styles.detailsRowImage} source={Images.icons.packageSize} />
+						<Image
+							testID="product-detail-package-size-icon"
+							style={styles.detailsRowImage}
+							source={Images.icons.packageSize}
+						/>
 						<View>
 							<Text style={styles.detailsRowTitle}>Packungsgröße</Text>
 							{/* TODO: format the text to read Stück and gram. ml stays the same */}
@@ -58,21 +63,33 @@ const ProductDetailScreen: FC<Props> = observer(({ route }) => {
 						</View>
 					</View>
 					<View style={styles.detailsRow}>
-						<Image style={styles.detailsRowImage} source={Images.icons.pharmaceuticalForm} />
+						<Image
+							testID="product-detail-pharmaceutical-icon"
+							style={styles.detailsRowImage}
+							source={Images.icons.pharmaceuticalForm}
+						/>
 						<View>
 							<Text style={styles.detailsRowTitle}>Darreichungsform</Text>
 							<Text style={styles.detailsRowInfo}>{product.pharmaceuticalForm}</Text>
 						</View>
 					</View>
 					<View style={styles.detailsRow}>
-						<Image style={styles.detailsRowImage} source={Images.icons.pzn} />
+						<Image
+							testID="product-detail-pzn-icon"
+							style={styles.detailsRowImage}
+							source={Images.icons.pzn}
+						/>
 						<View>
 							<Text style={styles.detailsRowTitle}>PZN</Text>
 							<Text style={styles.detailsRowInfo}>{product.code}</Text>
 						</View>
 					</View>
 					<View style={[styles.detailsRow, { marginBottom: 0 }]}>
-						<Image style={styles.detailsRowImage} source={Images.icons.companyName} />
+						<Image
+							testID="product-detail-company-name-icon"
+							style={styles.detailsRowImage}
+							source={Images.icons.companyName}
+						/>
 						<View>
 							<Text style={styles.detailsRowTitle}>Hersteller</Text>
 							<Text style={styles.detailsRowInfo}>{product.companyName}</Text>

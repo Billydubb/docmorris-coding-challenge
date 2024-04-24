@@ -28,7 +28,6 @@ jest.mock('app/state/StateProvider', () => ({
 	useMobx: () => ({ productStore: mockProductStore })
 }))
 
-// Mock other external dependencies
 jest.mock('@react-navigation/bottom-tabs', () => ({
 	useBottomTabBarHeight: () => 50
 }))
@@ -42,8 +41,6 @@ const mockRoute = {}
 
 describe('ProductListScreen - Component Test', () => {
 	beforeEach(() => {
-		const mockProductStore = new ProductStore()
-		mockProductStore.pageSize = 2
 		jest.mock('app/state/StateProvider', () => ({
 			useMobx: () => ({ productStore: mockProductStore })
 		}))
@@ -78,10 +75,19 @@ describe('ProductListScreen - Component Test', () => {
 
 		const numberOfProductsAfterLoad = flatList.props.data.length
 
-		expect(mockProductStore.pageSize).toBe(2)
 		await waitFor(() => {
 			expect(numberOfProductsAfterLoad).toBeGreaterThan(initialNumberOfProducts)
 		})
+	})
+
+	it('should navigate to PDP on click', () => {
+		const { getAllByTestId } = renderWithNavigation(
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			<ProductListScreen navigation={mockNavigation as any} route={mockRoute as any}></ProductListScreen>
+		)
+		const productListItem = getAllByTestId('product-list-item')[0]
+		fireEvent.press(productListItem)
+		expect(mockNavigateFunction).toBeCalledTimes(1)
 	})
 
 	it('should set the search term in the search field and products store when text is entered', () => {
@@ -93,15 +99,5 @@ describe('ProductListScreen - Component Test', () => {
 		const searchField = getByPlaceholderText('Suche')
 		fireEvent.changeText(searchField, 'Magnesium')
 		expect(searchField.props.value).toBe('Magnesium')
-	})
-
-	fit('should navigate to PDP on click', () => {
-		const { getAllByTestId } = renderWithNavigation(
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			<ProductListScreen navigation={mockNavigation as any} route={mockRoute as any}></ProductListScreen>
-		)
-		const productListItem = getAllByTestId('product-list-item')[0]
-		fireEvent.press(productListItem)
-		expect(mockNavigateFunction).toBeCalledTimes(1)
 	})
 })
