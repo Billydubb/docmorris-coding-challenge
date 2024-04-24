@@ -19,7 +19,7 @@ const OrdersScreen: FC<OrdersScreenProps> = observer(() => {
 	return (
 		<View style={styles.container}>
 			<FlatList
-				data={ordersStore.orders}
+				data={ordersStore.lastTenOrders}
 				keyExtractor={(item) => item.orderId}
 				renderItem={({ item }) => <OrderListItem order={item} user={userStore.user}></OrderListItem>}
 				contentContainerStyle={[styles.contentContainer, { paddingBottom: tabBarHeight + insets.bottom }]}

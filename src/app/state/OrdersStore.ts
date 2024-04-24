@@ -21,8 +21,13 @@ export class OrdersStore {
 		this.orders = createFakeOrders()
 	}
 
+	get lastTenOrders() {
+		const lastTen = this.orders.slice(0, 10)
+
+		return lastTen
+	}
+
 	checkOut(order: Order) {
-		// TODO: put theh order to the front of the orders array
 		this.orders.unshift(order)
 	}
 }
