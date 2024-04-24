@@ -15,6 +15,10 @@ interface Props {
 }
 export const OrderListItem: FC<Props> = observer(({ order, user }) => {
 	const renderOrderListItemProductsProducts = (productOrders: ProductOrder[], withPrescription: boolean) => {
+		if (productOrders.length === 0) {
+			return null
+		}
+
 		return (
 			<>
 				<ItemListGroupHeader
@@ -22,7 +26,12 @@ export const OrderListItem: FC<Props> = observer(({ order, user }) => {
 					userName={`${user?.firstName} ${user?.lastName}`}
 				></ItemListGroupHeader>
 				{productOrders.map((productOrder) => {
-					return <OrderListProductItem productOrder={productOrder}></OrderListProductItem>
+					return (
+						<OrderListProductItem
+							key={productOrder.product.code}
+							productOrder={productOrder}
+						></OrderListProductItem>
+					)
 				})}
 			</>
 		)
@@ -35,10 +44,8 @@ export const OrderListItem: FC<Props> = observer(({ order, user }) => {
 				<Text style={styles.orderId}>{`Bestellnummer: ${order.orderId}`}</Text>
 				<Text style={styles.orderReceived}>Bestellung eingegangen</Text>
 			</View>
-			{order.prescriptionProducts.length
-				? renderOrderListItemProductsProducts(order.prescriptionProducts, true)
-				: null}
-			{order.products.length ? renderOrderListItemProductsProducts(order.products, false) : null}
+			{renderOrderListItemProductsProducts(order.prescriptionProducts, true)}
+			{renderOrderListItemProductsProducts(order.products, false)}
 		</View>
 	)
 })
@@ -78,3 +85,5 @@ const styles = StyleSheet.create({
 		marginBottom: 28
 	}
 })
+
+export default OrderListItem
