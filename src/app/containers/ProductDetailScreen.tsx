@@ -58,7 +58,6 @@ const ProductDetailScreen: FC<Props> = observer(({ route }) => {
 						/>
 						<View>
 							<Text style={styles.detailsRowTitle}>Packungsgröße</Text>
-							{/* TODO: format the text to read Stück and gram. ml stays the same */}
 							<Text style={styles.detailsRowInfo}>{product.quantity}</Text>
 						</View>
 					</View>

@@ -54,7 +54,6 @@ describe('ProductDetailScreen - Component Test', () => {
 			<ProductDetailScreen navigation={mockNavigation as any} route={mockRoute as any}></ProductDetailScreen>
 		)
 
-		// TODO: also include icons (just check for 4 icons being present)
 		expect(getByTestId('product-detail-image')).toBeTruthy()
 		expect(getByText('Magnesium-diasporal 400 Extra Kapseln 100 St')).toBeTruthy()
 		expect(getByText('In den Warenkorb')).toBeTruthy()

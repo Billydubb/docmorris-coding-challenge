@@ -9,7 +9,7 @@ interface Props {
 	productOrder: ProductOrder
 }
 
-export const OrderListProductItem: FC<Props> = observer(({ productOrder }) => {
+const OrderListProductItem: FC<Props> = observer(({ productOrder }) => {
 	const deviceWidth = theme.deviceWidth
 
 	return (

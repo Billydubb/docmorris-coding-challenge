@@ -30,6 +30,7 @@ export const _ProductListItem: FC<Props> = ({ product }) => {
 		<TouchableOpacity onPress={onPress} testID="product-list-item">
 			<View style={styles.container}>
 				<Image
+					testID="product-list-image"
 					style={styles.productImage}
 					source={{ uri: getSizedImageForProduct('list', deviceWidth, product) }}
 				/>

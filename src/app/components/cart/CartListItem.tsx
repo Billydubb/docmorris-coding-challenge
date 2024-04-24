@@ -11,7 +11,7 @@ interface Props {
 	cartItem: CartItem
 }
 
-export const CartListItem: FC<Props> = observer(({ cartItem }) => {
+const CartListItem: FC<Props> = observer(({ cartItem }) => {
 	const { cartStore } = useMobx()
 	const deviceWidth = theme.deviceWidth
 	const handleChange = (value: string) => {
