@@ -14,7 +14,14 @@ module.exports = {
 	parser: '@typescript-eslint/parser',
 	parserOptions: {
 		project: './tsconfig.json',
+		sourceType: 'module',
+		tsconfigRootDir: __dirname, // Set to your project's root directory
+		ecmaFeatures: {
+			jsx: true,
+			js: true
+		},
 	},
+	ignorePatterns: ['babel.config.js', 'node_modules', 'metro.config.js'],
 	plugins: [
 		'@typescript-eslint',
 		'eslint-plugin-jsdoc',
@@ -169,6 +176,8 @@ module.exports = {
 		'no-undef-init': 'error',
 		'no-unsafe-finally': 'error',
 		'no-unused-labels': 'error',
+		"no-unused-vars": "off",
+		"@typescript-eslint/no-unused-vars": ["error"],
 		'no-var': 'error',
 		'object-shorthand': 'error',
 		'one-var': ['error', 'never'],

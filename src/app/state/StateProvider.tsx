@@ -13,8 +13,8 @@ interface State {
 	userStore: UserStore
 }
 
-const cartStore = new CartStore()
 const ordersStore = new OrdersStore()
+const cartStore = new CartStore(ordersStore)
 const productStore = new ProductStore()
 const userStore = new UserStore()
 

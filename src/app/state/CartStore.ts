@@ -1,5 +1,8 @@
+import { generateOrderId } from '@utils/generateOrderId'
 import { Product } from 'app/models/Product'
 import { makeAutoObservable } from 'mobx'
+
+import { Order, OrdersStore, ProductOrder } from './OrdersStore'
 
 export interface CartItem {
 	quantity: number
@@ -11,9 +14,11 @@ export class CartStore {
 	// <string, key is the product code
 	prescriptionCartItems: Record<string, CartItem> = {}
 	cartItems: Record<string, CartItem> = {}
+	ordersStore: OrdersStore
 
-	constructor() {
+	constructor(ordersStore: OrdersStore) {
 		makeAutoObservable(this)
+		this.ordersStore = ordersStore
 	}
 
 	/**
@@ -96,5 +101,35 @@ export class CartStore {
 		}
 
 		this.setCartItemQuantity(productCode, withPrescription, oldQuantity - 1)
+	}
+
+	checkOutOrder() {
+		const prescriptionProducts: ProductOrder[] = Object.values(this.prescriptionCartItems).map((item) => {
+			return {
+				product: item.product,
+				quantity: item.quantity
+			}
+		})
+
+		const products: ProductOrder[] = Object.values(this.cartItems).map((item) => {
+			return {
+				product: item.product,
+				quantity: item.quantity
+			}
+		})
+
+		const order: Order = {
+			prescriptionProducts,
+			products,
+			orderId: generateOrderId(),
+			date: new Date()
+		}
+		this.ordersStore.checkOut(order)
+		this.resetCartStore()
+	}
+
+	resetCartStore() {
+		this.prescriptionCartItems = {}
+		this.cartItems = {}
 	}
 }

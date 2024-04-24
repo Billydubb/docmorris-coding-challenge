@@ -60,7 +60,6 @@ export const TabNavigator = observer((): JSX.Element => {
 					},
 					headerShown: true,
 					header: () => <TabScreenHeader title={'Bestellungen'} />,
-					tabBarBadge: cartStore.numProductsInCart || undefined,
 					tabBarBadgeStyle: {
 						backgroundColor: theme.colors.salem
 					},

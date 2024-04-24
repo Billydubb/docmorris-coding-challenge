@@ -1,5 +1,5 @@
 import CartListItem from '@components/cart/CartListItem'
-import CartListSectionHeader from '@components/cart/CartListSectionHeader'
+import { ItemListGroupHeader } from '@components/common/ItemListGroupHeader'
 import LoadingButton from '@components/common/LoadingButton'
 import { ScreenParamList, TabNavigatorParamList } from '@navigation/types'
 import { BottomTabScreenProps, useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
@@ -13,14 +13,12 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import TrianglePattern from '../images/svg/trianglePattern.svg'
 
 export type CartScreenParamsList = ScreenParamList<'CartScreen'>
-
 type CartScreenProps = BottomTabScreenProps<TabNavigatorParamList, 'CartScreen'>
 
 const CartScreen: FC<CartScreenProps> = observer(({ navigation }) => {
 	const tabBarHeight = useBottomTabBarHeight()
 	const insets = useSafeAreaInsets()
-	const { productStore, cartStore, userStore } = useMobx()
-	// const navigation = useNavigation()
+	const { cartStore, userStore } = useMobx()
 
 	const {
 		user: { firstName, lastName }
@@ -38,12 +36,17 @@ const CartScreen: FC<CartScreenProps> = observer(({ navigation }) => {
 	]
 
 	const onPressPurchase = () => {
+		cartStore.checkOutOrder()
 		navigation.navigate('OrdersScreen', {
 			screenName: 'OrdersScreen'
 		})
 	}
 
 	const renderListFooter = () => {
+		if (cartStore.numProductsInCart === 0) {
+			return null
+		}
+
 		return (
 			<>
 				<TrianglePattern style={styles.trianglePattern} height={20} width={theme.deviceWidth} />
@@ -59,23 +62,26 @@ const CartScreen: FC<CartScreenProps> = observer(({ navigation }) => {
 		<View style={styles.container}>
 			<SectionList
 				sections={data}
-				initialNumToRender={productStore.pageSize}
 				keyExtractor={(cartItem, index) => `${cartItem.product.code}-${index}`}
 				renderItem={({ item }) => <CartListItem cartItem={item}></CartListItem>}
-				renderSectionHeader={({ section }) => (
-					<CartListSectionHeader
-						sectionKey={section.key}
-						userName={`${firstName} ${lastName}`}
-					></CartListSectionHeader>
-				)}
+				renderSectionHeader={({ section }) =>
+					section.data.length ? (
+						<ItemListGroupHeader
+							withPrescription={section.key === 'prescription'}
+							userName={`${firstName} ${lastName}`}
+						></ItemListGroupHeader>
+					) : null
+				}
 				contentContainerStyle={[styles.contentContainer, { paddingBottom: tabBarHeight + insets.bottom }]}
-				stickyHeaderIndices={[0]}
-				onEndReached={() => productStore.loadMoreProducts()}
-				onEndReachedThreshold={0.5}
 				ListFooterComponent={renderListFooter()}
 			/>
 			<View style={styles.fixedCTA}>
-				<LoadingButton filled onPress={onPressPurchase} title="Kostenpflichtig Bestellen"></LoadingButton>
+				<LoadingButton
+					disabled={cartStore.numProductsInCart === 0}
+					filled
+					onPress={onPressPurchase}
+					title="Kostenpflichtig Bestellen"
+				></LoadingButton>
 			</View>
 		</View>
 	)

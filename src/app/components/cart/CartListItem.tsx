@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
 		width: 64,
 		padding: 8,
 		aspectRatio: 1,
-		marginRight: 16
+		marginRight: 8
 	},
 	rightContainer: {
 		flexDirection: 'column',

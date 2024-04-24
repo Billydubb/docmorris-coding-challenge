@@ -3,12 +3,16 @@ import React, { FC } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 interface Props {
-	sectionKey: string
-	userName: string
+	withPrescription?: boolean
+	userName?: string
 }
 
-export const CartListSectionHeader: FC<Props> = ({ sectionKey, userName }) => {
-	return sectionKey === 'prescription' ? (
+/**
+ * Header component under which cart and order items are grouped by
+ * whether or not they are with a prescription
+ */
+export const ItemListGroupHeader: FC<Props> = ({ withPrescription, userName }) => {
+	return withPrescription ? (
 		<View style={styles.prescriptionCardHeader}>
 			<Text style={styles.recipeFor}>Kassenrezept für</Text>
 			<Text style={styles.userName}>{userName}</Text>
@@ -49,5 +53,3 @@ const styles = StyleSheet.create({
 		lineHeight: 24
 	}
 })
-
-export default CartListSectionHeader
